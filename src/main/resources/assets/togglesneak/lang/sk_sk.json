@@ -1,0 +1,12 @@
+{
+  "configGui.title": "Nastavenia Toggle Sneak",
+  "configGui.done": "Hotovo",
+  "configGui.option.toggleSneak": "Toggle Sneak",
+  "configGui.option.toggleSprint": "Toggle Sprint",
+  "configGui.option.toggleDisplay": "Zobraziť používateľské rozhranie",
+  "configGui.option.shiftReleaseTime": "Milisekundy na uvoľnenie Toggle Sneak",
+  "displayGui.sneaking": "Sneak",
+  "displayGui.sprinting": "Sprint",
+  "keybinding.toggle.sneak": "Toggle Sneak",
+  "keybinding.toggle.sprint": "Toggle Sprint"
+}

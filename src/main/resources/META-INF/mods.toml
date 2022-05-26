@@ -1,0 +1,42 @@
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="ISC License"
+[[mods]]
+modId="${mod_id}"
+version="${version}"
+displayName="$title"
+# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+displayURL="https://shotbow.net/"
+logoFile="Shotbow-logo.png"
+authors="Galap"
+description='''
+** Motivation **
+Since Minecraft 1.15, 'Toggle' sneaking mode is a built-in option. However, this mod has benefits over the official toggle sneak:
+- Supports Toggle and Hold modes simultaneously.
+- Does not activate when flying or dismounting from entities; such as horses or when in spectator mode.
+- Addition of Toggle Sprint.
+- Optional display with the status of both sneak and sprint.
+
+** Usage **
+* Controls *
+By default, both sneak and sprint are enabled.
+Sprinting is active when you move.
+Sneaking (TOGGLE) can be active by pressing the sneak key once.
+Sneaking (HOLD) can be active by holding the sneak key. When you let go, you will unsneak.
+
+* Display *
+Only enabled toggles will be displayed on the left-hand side of the screen.
+When active, the toggle sneak will turn gold. Otherwise, it will be white, even during hold mode.
+Toggle Sprint will always be gold when enabled as it is always active.
+
+* Config *
+Certain functionality of this mod can be configured via the mods menu:
+1) Goto the Main Menu
+2) Click Mods
+3) Select $title
+4) Click 'Config' (bottom left)
+
+The release milliseconds is the maximum time for which your press will be counted as TOGGLE vs HOLD sneak.
+'''

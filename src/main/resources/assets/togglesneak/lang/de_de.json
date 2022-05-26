@@ -1,0 +1,12 @@
+{
+  "configGui.title": "Toggle Sneak Einstellungen",
+  "configGui.done": "Fertig",
+  "configGui.option.toggleSneak": "Toggle Sneak",
+  "configGui.option.toggleSprint": "Toggle Sprint",
+  "configGui.option.toggleDisplay": "Benutzeroberfläche anzeigen",
+  "configGui.option.shiftReleaseTime": "Millisekunden bis zu normalem Schleichen",
+  "displayGui.sneaking": "Schleichen",
+  "displayGui.sprinting": "Sprinten",
+  "keybinding.toggle.sneak": "Toggle Sneak",
+  "keybinding.toggle.sprint": "Toggle Sprint"
+}
