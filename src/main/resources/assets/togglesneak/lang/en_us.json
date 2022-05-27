@@ -4,7 +4,7 @@
   "configGui.option.toggleSneak": "Toggle Sneak",
   "configGui.option.toggleSprint": "Toggle Sprint",
   "configGui.option.toggleDisplay": "Display UI",
-  "configGui.option.shiftReleaseTime": "Toggle Sneak Release Milliseconds",
+  "configGui.option.shiftReleaseTime": "Milliseconds until regular sneak",
   "displayGui.sneaking": "Sneak",
   "displayGui.sprinting": "Sprint",
   "keybinding.toggle.sneak": "Toggle Sneak",
