@@ -1,0 +1,12 @@
+{
+  "configGui.title": "Toggle Sneak Asetukset",
+  "configGui.done": "Valmis",
+  "configGui.option.toggleSneak": "Toggle Sneak",
+  "configGui.option.toggleSprint": "Toggle Sprint",
+  "configGui.option.toggleDisplay": "Näytä käyttöliittymä",
+  "configGui.option.shiftReleaseTime": "Millisekuntia normaaliin hiipimiseen",
+  "displayGui.sneaking": "Juoksee",
+  "displayGui.sprinting": "Hiipii",
+  "keybinding.toggle.sneak": "Toggle Sneak",
+  "keybinding.toggle.sprint": "Toggle Sprint"
+}
