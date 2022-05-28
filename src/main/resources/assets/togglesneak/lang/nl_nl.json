@@ -1,0 +1,12 @@
+{
+  "configGui.title": "Toggle Sneak Instellingen",
+  "configGui.done": "Gereed",
+  "configGui.option.toggleSneak": "Sluipen omschakelen",
+  "configGui.option.toggleSprint": "Sprinten omschakelen",
+  "configGui.option.toggleDisplay": "Geef UI weer",
+  "configGui.option.shiftReleaseTime": "Milliseconden tot normaal sluipen",
+  "displayGui.sneaking": "Sluipen",
+  "displayGui.sprinting": "Sprinten",
+  "keybinding.toggle.sneak": "Sluipen omschakelen",
+  "keybinding.toggle.sprint": "Sprinten omschakelen"
+}
