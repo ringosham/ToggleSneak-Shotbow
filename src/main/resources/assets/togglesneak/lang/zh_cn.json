@@ -1,0 +1,12 @@
+{
+  "configGui.title": "切换潜行设置",
+  "configGui.done": "完成",
+  "configGui.option.toggleSneak": "切换到潜行",
+  "configGui.option.toggleSprint": "切换到疾跑",
+  "configGui.option.toggleDisplay": "显示用户界面",
+  "configGui.option.shiftReleaseTime": "正常潜行等待毫秒数",
+  "displayGui.sneaking": "潜行",
+  "displayGui.sprinting": "疾跑",
+  "keybinding.toggle.sneak": "切换到潜行",
+  "keybinding.toggle.sprint": "切换到疾跑"
+}

@@ -1,0 +1,12 @@
+{
+  "configGui.title": "トグルスニークの設定",
+  "configGui.done": "完了",
+  "configGui.option.toggleSneak": "トグルスニーク",
+  "configGui.option.toggleSprint": "トグルスプリント",
+  "configGui.option.toggleDisplay": "ディスプレイUI",
+  "configGui.option.shiftReleaseTime": "通常スニークまでの秒数",
+  "displayGui.sneaking": "スニーク",
+  "displayGui.sprinting": "スプリント",
+  "keybinding.toggle.sneak": "トグルスニーク",
+  "keybinding.toggle.sprint": "トグルスプリント"
+}
