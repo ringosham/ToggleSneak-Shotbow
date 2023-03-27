@@ -2,7 +2,7 @@ package net.shotbow.ToggleSneak;
 
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +32,8 @@ public class ToggleSneak {
         this.keyBinding = new KeyBinding();
         this.toggleStatus = new ToggleStatus();
         ModLoadingContext.get().registerExtensionPoint(
-                ConfigGuiHandler.ConfigGuiFactory.class,
-                () -> new ConfigGuiHandler.ConfigGuiFactory((minecraft, screen) -> new ConfigScreen())
+                ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> new ConfigScreen())
         );
         this.registerListeners();
     }

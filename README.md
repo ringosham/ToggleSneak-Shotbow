@@ -16,7 +16,8 @@ Sneaking (HOLD) can be active by holding the sneak key. When you let go, you wil
 
 ## Usage
 ### Version
-This mod is for 1.18 Minecraft clients using <a href="https://files.minecraftforge.net/net/minecraftforge/forge/">Forge</a>.
+This mod is for 1.19.4 Minecraft clients using <a href="https://files.minecraftforge.net/net/minecraftforge/forge/">Forge</a>.
+This does not work for versions under 1.19.4.
 
 ### Installation
 - Download the <a href="https://github.com/Shotbow/ToggleSneak/releases">ToggleSneak jar</a> for the desired Minecraft version

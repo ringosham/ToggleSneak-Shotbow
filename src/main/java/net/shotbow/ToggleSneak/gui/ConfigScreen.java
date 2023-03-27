@@ -1,95 +1,87 @@
 package net.shotbow.ToggleSneak.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.CycleOption;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.ProgressOption;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.OptionsList;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.client.gui.widget.ForgeSlider;
 import net.shotbow.ToggleSneak.object.ToggleConfig;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Credit to <a href="https://leo3418.github.io/2021/03/31/forge-mod-config-screen-1-16.html">leo3418</a>
- * for their great tutorial.
- */
 public class ConfigScreen extends Screen {
     private static final int TITLE_HEIGHT = 8;
-    private static final int OPTIONS_LIST_TOP_HEIGHT = 24;
-    private static final int OPTIONS_LIST_BOTTOM_OFFSET = 32;
-    private static final int OPTIONS_LIST_ITEM_HEIGHT = 25;
-    private static final int BUTTON_WIDTH = 200;
+    private static final int BUTTON_WIDTH = 150;
+    private static final int LONG_BUTTON_WIDTH = BUTTON_WIDTH * 2;
     private static final int BUTTON_HEIGHT = 20;
-    private static final int DONE_BUTTON_TOP_OFFSET = 26;
-    private OptionsList optionsRowList;
+    private ForgeSlider releaseTimeSlider;
 
     public ConfigScreen() {
-        super(new TranslatableComponent("configGui.title"));
+        super(Component.translatable("configGui.title"));
     }
 
     @Override
     protected void init() {
-        this.optionsRowList = new OptionsList(
-                Minecraft.getInstance(), this.width, this.height,
-                OPTIONS_LIST_TOP_HEIGHT,
-                this.height - OPTIONS_LIST_BOTTOM_OFFSET,
-                OPTIONS_LIST_ITEM_HEIGHT
-        );
         ToggleConfig toggleConfig = ToggleConfig.getInstance();
-        this.optionsRowList.addBig(CycleOption.createOnOff(
-                "configGui.option.toggleSneak",
-                (options) -> toggleConfig.getToggleSneak().get(),
-                (options, option, bool) -> toggleConfig.setToggleSneak(bool)
-        ));
-        this.optionsRowList.addBig(CycleOption.createOnOff(
-                "configGui.option.toggleSprint",
-                (options) -> toggleConfig.getToggleSprint().get(),
-                (options, option, bool) -> toggleConfig.getToggleSprint().set(bool)
-        ));
-        this.optionsRowList.addBig(CycleOption.createOnOff(
-                "configGui.option.toggleDisplay",
-                (options) -> toggleConfig.getToggleDisplay().get(),
-                (options, option, bool) -> toggleConfig.getToggleDisplay().set(bool)
-        ));
-        this.optionsRowList.addBig(
-            new ProgressOption("configGui.option.shiftReleaseTime", 500D, 1000D, 1F,
-                (options) -> toggleConfig.getShiftReleaseTime().get(),
-                (options, value) -> toggleConfig.getShiftReleaseTime().set((double) (Math.round(value * 100) / 100)),
-                (options, progressOption) -> {
-                    double value = progressOption.toPct(toggleConfig.getShiftReleaseTime().get());
-                    return new TextComponent(
-                            new TranslatableComponent("configGui.option.shiftReleaseTime").getString()
-                           + String.format(": %.0f", progressOption.toValue(value))
-                    );
-                }
-            )
-        );
-        this.addWidget(optionsRowList);
-        this.addRenderableWidget(new Button(
-                (this.width - BUTTON_WIDTH) / 2,
-                this.height - DONE_BUTTON_TOP_OFFSET,
+        int screenWidth = this.width;
+        int screenHeight = this.height;
+        int buttonGap = 5;
+        int buttonX = (screenWidth - BUTTON_WIDTH * 2 - buttonGap) / 2; // center the two buttons horizontally
+        int buttonY = TITLE_HEIGHT + 30; // position the two buttons below the title
+        int sliderX = (screenWidth - BUTTON_WIDTH * 2) / 2; // center the slider horizontally
+        int sliderY = buttonY + BUTTON_HEIGHT + 10; // position the slider below the buttons
+        int doneButtonX = (screenWidth - LONG_BUTTON_WIDTH) / 2; // center the done button horizontally
+        int doneButtonY = screenHeight - 30; // position the done button near the bottom of the screen
+
+        this.addRenderableWidget(CycleButton.onOffBuilder(toggleConfig.getToggleSneak().get()).create(
+                buttonX,
+                buttonY,
                 BUTTON_WIDTH,
                 BUTTON_HEIGHT,
-                new TranslatableComponent("configGui.done"),
-                button -> this.onClose()
+                Component.translatable("configGui.option.toggleSneak"), (widget, value) -> toggleConfig.setToggleSneak(value))
+        );
+
+        this.addRenderableWidget(CycleButton.onOffBuilder(toggleConfig.getToggleSprint().get()).create(
+                buttonX + BUTTON_WIDTH + buttonGap,
+                buttonY,
+                BUTTON_WIDTH,
+                BUTTON_HEIGHT,
+                Component.translatable("configGui.option.toggleSprint"), (widget, value) -> toggleConfig.getToggleSprint().set(value))
+        );
+
+        this.addRenderableWidget(this.releaseTimeSlider = new ForgeSlider(
+                sliderX,
+                sliderY,
+                LONG_BUTTON_WIDTH,
+                BUTTON_HEIGHT,
+                Component.translatable("configGui.option.shiftReleaseTime").append(": "),
+                Component.empty(),
+                toggleConfig.getShiftReleaseMinimum(),
+                toggleConfig.getShiftReleaseMaximum(),
+                toggleConfig.getShiftReleaseTime().get(),
+                1,
+                0,
+                true
         ));
+
+        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, btn -> onClose())
+                .bounds(doneButtonX, doneButtonY, LONG_BUTTON_WIDTH, BUTTON_HEIGHT)
+                .build());
     }
 
     @Override
     public void render(@NotNull PoseStack poseStack, int mouseX, int mouseY, float ticks) {
-        this.renderBackground(poseStack);
-        this.optionsRowList.render(poseStack, mouseX, mouseY, ticks);
-        drawCenteredString(poseStack, this.font, this.title.getString(),
+        this.renderDirtBackground(poseStack);
+        drawCenteredString(poseStack, this.font, this.title,
                 this.width / 2, TITLE_HEIGHT, 0xFFFFFF);
         super.render(poseStack, mouseX, mouseY, ticks);
     }
 
     @Override
     public void onClose() {
-        super.onClose();
+        ToggleConfig.getInstance().getShiftReleaseTime().set(this.releaseTimeSlider.getValue());
         ToggleConfig.save();
+        super.onClose();
     }
 }

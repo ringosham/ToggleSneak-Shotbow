@@ -12,13 +12,15 @@ import java.nio.file.Path;
 
 public @Data class ToggleConfig {
 
-    @Getter
-    private static final ToggleConfig instance;
+    @Getter private static final ToggleConfig instance;
     private static final ForgeConfigSpec clientConfig;
     private final ForgeConfigSpec.BooleanValue toggleSneak;
     private final ForgeConfigSpec.BooleanValue toggleSprint;
     private final ForgeConfigSpec.BooleanValue toggleDisplay;
     private final ForgeConfigSpec.ConfigValue<Double> shiftReleaseTime;
+
+    @Getter private final double shiftReleaseMinimum = 250D;
+    @Getter private final double shiftReleaseMaximum = 1000D;
 
     static {
         Pair<ToggleConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ToggleConfig::new);
@@ -40,14 +42,13 @@ public @Data class ToggleConfig {
                 .comment("This is the time in milliseconds that determines if shift should toggle or hold sneaking.",
                   "If you're holding LONGER than this time, sneaking will be held.",
                   "If you're holding LESS than (or equal to) this time, sneaking will toggle.")
-                .define("shiftReleaseTime", 800D);
+                .define("shiftReleaseTime", 300D);
     }
 
     public static void loadConfigFile(Path path)
     {
         final CommentedFileConfig file = CommentedFileConfig.builder(path)
                 .sync()
-                .autosave()
                 .writingMode(WritingMode.REPLACE)
                 .build();
         file.load();
@@ -60,7 +61,7 @@ public @Data class ToggleConfig {
 
     public void setToggleSneak(boolean toggle){
         if(toggle)
-            Minecraft.getInstance().options.toggleCrouch = false;
+            Minecraft.getInstance().options.toggleCrouch().set(false);
         toggleSneak.set(toggle);
     }
 

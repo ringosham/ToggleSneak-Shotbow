@@ -26,11 +26,11 @@ public class MovementInputListener {
         ToggleConfig config = ToggleConfig.getInstance();
         final boolean isSneakingEnabled = config.getToggleSneak().get();
         final boolean isSprintingEnabled = config.getToggleSprint().get();
-        if (e.getInput() == null || !isSneakingEnabled && !isSprintingEnabled) {
+        if (!isSneakingEnabled && !isSprintingEnabled) {
             return;
         }
         ToggleStatus settings = ToggleSneak.getToggleSneak().getToggleStatus();
-        Player player = e.getPlayer();
+        Player player = e.getEntity();
         if (isSprintingEnabled && !player.isCrouching()) player.setSprinting(true);
 
         if (player.isPassenger() || isDismounting || player.getAbilities().flying || !isSneakingEnabled) {

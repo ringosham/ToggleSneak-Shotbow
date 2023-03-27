@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[38,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[45,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="ISC License"
 [[mods]]
 modId="${mod_id}"
