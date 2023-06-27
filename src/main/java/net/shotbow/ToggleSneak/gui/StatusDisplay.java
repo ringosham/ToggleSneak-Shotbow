@@ -2,7 +2,6 @@ package net.shotbow.ToggleSneak.gui;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
@@ -17,7 +16,7 @@ public class StatusDisplay {
     public void render(RenderGuiOverlayEvent.Post e) {
         ToggleConfig config = ToggleConfig.getInstance();
         Minecraft minecraft = ToggleSneak.getToggleSneak().getMinecraft();
-        if (minecraft.player == null
+        if(minecraft.player == null
                 || !config.getToggleDisplay().get()) {
             return;
         }
@@ -27,16 +26,15 @@ public class StatusDisplay {
             // Render sneaking display
             MutableComponent sneakingDisplayText = Component.translatable("displayGui.sneaking")
                     .withStyle(ChatFormatting.WHITE);
-            if (status.isSneakingToggled()) {
+            if(status.isSneakingToggled()) {
                 sneakingDisplayText.withStyle(ChatFormatting.GOLD);
             }
-            GuiComponent.drawString(
-                    e.getPoseStack(),
+            e.getGuiGraphics().drawString(
                     minecraft.font,
                     sneakingDisplayText,
-                    1, //X
-                    midPoint, //Y
-                    0 //Z
+                    1,
+                    midPoint,
+                    0
             );
         }
         if(config.getToggleSprint().get()) {
@@ -44,16 +42,15 @@ public class StatusDisplay {
             MutableComponent sprintingDisplayText = Component.translatable("displayGui.sprinting")
                     .withStyle(ChatFormatting.GOLD);
             int yHeight = midPoint;
-            if(config.getToggleSneak().get()){
+            if(config.getToggleSneak().get()) {
                 yHeight += 10;
             }
-            GuiComponent.drawString(
-                    e.getPoseStack(),
+            e.getGuiGraphics().drawString(
                     minecraft.font,
                     sprintingDisplayText,
-                    1, //X
-                    yHeight, //Y
-                    0 //Z
+                    1,
+                    yHeight,
+                    0
             );
         }
     }

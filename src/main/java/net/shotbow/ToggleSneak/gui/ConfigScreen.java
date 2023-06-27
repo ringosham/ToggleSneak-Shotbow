@@ -1,6 +1,6 @@
 package net.shotbow.ToggleSneak.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
@@ -71,11 +71,11 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public void render(@NotNull PoseStack poseStack, int mouseX, int mouseY, float ticks) {
-        this.renderDirtBackground(poseStack);
-        drawCenteredString(poseStack, this.font, this.title,
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float ticks) {
+        this.renderDirtBackground(guiGraphics);
+        guiGraphics.drawCenteredString(this.font, this.title,
                 this.width / 2, TITLE_HEIGHT, 0xFFFFFF);
-        super.render(poseStack, mouseX, mouseY, ticks);
+        super.render(guiGraphics, mouseX, mouseY, ticks);
     }
 
     @Override
