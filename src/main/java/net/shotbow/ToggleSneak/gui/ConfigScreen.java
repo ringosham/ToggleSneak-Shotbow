@@ -1,24 +1,22 @@
 package net.shotbow.ToggleSneak.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CycleButton;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.gui.widget.ForgeSlider;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 import net.shotbow.ToggleSneak.object.ToggleConfig;
-import org.jetbrains.annotations.NotNull;
 
 public class ConfigScreen extends Screen {
     private static final int TITLE_HEIGHT = 8;
     private static final int BUTTON_WIDTH = 150;
     private static final int LONG_BUTTON_WIDTH = BUTTON_WIDTH * 2;
     private static final int BUTTON_HEIGHT = 20;
-    private ForgeSlider releaseTimeSlider;
+    private Slider releaseTimeSlider;
 
     public ConfigScreen() {
-        super(Component.translatable("configGui.title"));
+        super(new TranslationTextComponent("configGui.title"));
     }
 
     @Override
@@ -34,48 +32,63 @@ public class ConfigScreen extends Screen {
         int doneButtonX = (screenWidth - LONG_BUTTON_WIDTH) / 2; // center the done button horizontally
         int doneButtonY = screenHeight - 30; // position the done button near the bottom of the screen
 
-        this.addRenderableWidget(CycleButton.onOffBuilder(toggleConfig.getToggleSneak().get()).create(
-                buttonX,
-                buttonY,
-                BUTTON_WIDTH,
-                BUTTON_HEIGHT,
-                Component.translatable("configGui.option.toggleSneak"), (widget, value) -> toggleConfig.setToggleSneak(value))
-        );
+        this.addButton(new OnOffButton(
+           buttonX,
+           buttonY,
+           BUTTON_WIDTH,
+           BUTTON_HEIGHT,
+           new TranslationTextComponent("configGui.option.toggleSneak"),
+           (button) -> {
+               OnOffButton onOffButton = (OnOffButton) button;
+               onOffButton.setOn(!onOffButton.isOn());
+           },
+           toggleConfig.getToggleSneak().get()
+        ));
 
-        this.addRenderableWidget(CycleButton.onOffBuilder(toggleConfig.getToggleSprint().get()).create(
-                buttonX + BUTTON_WIDTH + buttonGap,
-                buttonY,
-                BUTTON_WIDTH,
-                BUTTON_HEIGHT,
-                Component.translatable("configGui.option.toggleSprint"), (widget, value) -> toggleConfig.getToggleSprint().set(value))
-        );
+        this.addButton(new OnOffButton(
+           buttonX + BUTTON_WIDTH + buttonGap,
+           buttonY,
+           BUTTON_WIDTH,
+           BUTTON_HEIGHT,
+           new TranslationTextComponent("configGui.option.toggleSprint"),
+           (button) -> {
+               OnOffButton onOffButton = (OnOffButton) button;
+               onOffButton.setOn(!onOffButton.isOn());
+           },
+           toggleConfig.getToggleSprint().get()
+        ));
 
-        this.addRenderableWidget(this.releaseTimeSlider = new ForgeSlider(
+        this.addWidget(this.releaseTimeSlider = new Slider(
                 sliderX,
                 sliderY,
                 LONG_BUTTON_WIDTH,
                 BUTTON_HEIGHT,
-                Component.translatable("configGui.option.shiftReleaseTime").append(": "),
-                Component.empty(),
+                new TranslationTextComponent("configGui.option.shiftReleaseTime").append(": "),
+                new StringTextComponent(""),
                 toggleConfig.getShiftReleaseMinimum(),
                 toggleConfig.getShiftReleaseMaximum(),
                 toggleConfig.getShiftReleaseTime().get(),
-                1,
-                0,
-                true
+                false,
+                true,
+                (slider) -> {}
         ));
 
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, btn -> onClose())
-                .bounds(doneButtonX, doneButtonY, LONG_BUTTON_WIDTH, BUTTON_HEIGHT)
-                .build());
+        this.addButton(new Button(
+                doneButtonX,
+                doneButtonY,
+                LONG_BUTTON_WIDTH,
+                BUTTON_HEIGHT,
+                new TranslationTextComponent("gui.done"),
+                (button) -> onClose()
+        ));
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float ticks) {
-        this.renderDirtBackground(guiGraphics);
-        guiGraphics.drawCenteredString(this.font, this.title,
-                this.width / 2, TITLE_HEIGHT, 0xFFFFFF);
-        super.render(guiGraphics, mouseX, mouseY, ticks);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float ticks) {
+        // renderDirBackground parameter is always 0
+        this.renderDirtBackground(0);
+        this.font.draw(matrixStack, this.title.getVisualOrderText(), (this.width / 2) - (font.width(this.title.getVisualOrderText()) / 2), TITLE_HEIGHT, 0xFFFFFF);
+        super.render(matrixStack, mouseX, mouseY, ticks);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package net.shotbow.ToggleSneak.listeners;
 
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.shotbow.ToggleSneak.ToggleSneak;
-import net.shotbow.ToggleSneak.keyboard.KeyBinding;
+import net.shotbow.ToggleSneak.keyboard.KeyMapping;
 import net.shotbow.ToggleSneak.object.ToggleConfig;
 
 public class KeyboardListener {
@@ -14,7 +14,7 @@ public class KeyboardListener {
         if(e.phase != TickEvent.Phase.END)
             return;
         //Handle toggling of options
-        KeyBinding keyBinding = ToggleSneak.getToggleSneak().getKeyBinding();
+        KeyMapping keyBinding = ToggleSneak.getToggleSneak().getKeyBinding();
         ToggleConfig config = ToggleConfig.getInstance();
         if(keyBinding.getToggleSneakKey() != null && isPressed(keyBinding.getToggleSneakKey())){
             //Toggle Sneak pressed
@@ -28,7 +28,7 @@ public class KeyboardListener {
         }
     }
 
-    private boolean isPressed(KeyMapping mapping){
+    private boolean isPressed(KeyBinding mapping){
         return mapping.isDown()
                 && mapping.getKeyConflictContext().isActive()
                 && mapping.consumeClick();

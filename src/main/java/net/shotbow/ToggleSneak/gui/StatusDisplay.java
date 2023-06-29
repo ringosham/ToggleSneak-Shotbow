@@ -1,10 +1,10 @@
 package net.shotbow.ToggleSneak.gui;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.shotbow.ToggleSneak.ToggleSneak;
 import net.shotbow.ToggleSneak.object.ToggleConfig;
@@ -13,7 +13,7 @@ import net.shotbow.ToggleSneak.object.ToggleStatus;
 public class StatusDisplay {
 
     @SubscribeEvent
-    public void render(RenderGuiOverlayEvent.Post e) {
+    public void render(RenderGameOverlayEvent.Post e) {
         ToggleConfig config = ToggleConfig.getInstance();
         Minecraft minecraft = ToggleSneak.getToggleSneak().getMinecraft();
         if(minecraft.player == null
@@ -24,13 +24,13 @@ public class StatusDisplay {
         int midPoint = e.getWindow().getGuiScaledHeight() / 2;
         if(config.getToggleSneak().get()) {
             // Render sneaking display
-            MutableComponent sneakingDisplayText = Component.translatable("displayGui.sneaking")
-                    .withStyle(ChatFormatting.WHITE);
+            IFormattableTextComponent sneakingDisplayText = new TranslationTextComponent("displayGui.sneaking")
+                    .withStyle(TextFormatting.WHITE);
             if(status.isSneakingToggled()) {
-                sneakingDisplayText.withStyle(ChatFormatting.GOLD);
+                sneakingDisplayText.withStyle(TextFormatting.GOLD);
             }
-            e.getGuiGraphics().drawString(
-                    minecraft.font,
+            Minecraft.getInstance().font.draw(
+                    e.getMatrixStack(),
                     sneakingDisplayText,
                     1,
                     midPoint,
@@ -39,14 +39,14 @@ public class StatusDisplay {
         }
         if(config.getToggleSprint().get()) {
             // Render sprinting display
-            MutableComponent sprintingDisplayText = Component.translatable("displayGui.sprinting")
-                    .withStyle(ChatFormatting.GOLD);
+            IFormattableTextComponent sprintingDisplayText = new TranslationTextComponent("displayGui.sprinting")
+                    .withStyle(TextFormatting.GOLD);
             int yHeight = midPoint;
             if(config.getToggleSneak().get()) {
                 yHeight += 10;
             }
-            e.getGuiGraphics().drawString(
-                    minecraft.font,
+            Minecraft.getInstance().font.draw(
+                    e.getMatrixStack(),
                     sprintingDisplayText,
                     1,
                     yHeight,

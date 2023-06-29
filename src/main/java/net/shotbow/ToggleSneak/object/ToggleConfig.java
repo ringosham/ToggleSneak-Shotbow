@@ -13,7 +13,7 @@ import java.nio.file.Path;
 public @Data class ToggleConfig {
 
     @Getter private static final ToggleConfig instance;
-    private static final ForgeConfigSpec clientConfig;
+    @Getter private static final ForgeConfigSpec clientConfig;
     private final ForgeConfigSpec.BooleanValue toggleSneak;
     private final ForgeConfigSpec.BooleanValue toggleSprint;
     private final ForgeConfigSpec.BooleanValue toggleDisplay;
@@ -61,7 +61,7 @@ public @Data class ToggleConfig {
 
     public void setToggleSneak(boolean toggle){
         if(toggle)
-            Minecraft.getInstance().options.toggleCrouch().set(false);
+            Minecraft.getInstance().options.toggleCrouch = false;
         toggleSneak.set(toggle);
     }
 
